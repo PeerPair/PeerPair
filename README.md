@@ -18,3 +18,30 @@ A lot of things need a partner to be done, or might be better if you have a part
 2. A signup/ signin for users accounts
 3. Rooms and chat to allow partners to interact with each other.
 
+
+
+<br>
+
+### Database Schema Diagram 
+
+<br>
+
+ Data models and their responsibility in the application :
+
+ * **User** : has properties such as login credentials, user_ID , interests and the identifiers of both user's sent and received requests . It has relationships  almost all other app data models . 
+
+* **Pair-request** : has properties such as request_ID, user_ID (either it was a request sender/recipient) , category, description and any other needed  information about a request .
+
+* **Profile** : It's were the app gathers all the information the user added to introduce himself to other users . It has properties like user_ID , age, user_bio , location
+profile_image .
+
+* **Conversation** 
+
+* **Messege** 
+
+
+<br>
+
+![db-schema](assets/images/schema.jpg)
+
+
