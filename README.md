@@ -28,7 +28,7 @@ A lot of things need a partner to be done, or might be better if you have a part
 
  Data models and their responsibility in the application :
 
- * **User** : has properties such as login credentials, user_ID , interests and the identifiers of both user's sent and received requests . It has relationships  almost all other app data models . 
+ * **User** : has properties such as login credentials (username,password), user_ID , interests and the identifiers of both user's sent and received requests . It has relationships with almost all other app data models . 
 
 * **Pair-request** : has properties such as request_ID, user_ID (either it was a request sender/recipient) , category, description and any other needed  information about a request .
 
