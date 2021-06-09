@@ -28,6 +28,9 @@ Generates new ideas for meeting customer needs by effectively using customer int
 **Farah:**
 I am a person who empathizes with other team members, to understand how others feel, as I want to support our team, by sharing my experience, information and knowledge with team members to continue the workflow and also to complete the task in the fastest time and with the least effort.
 
+**Mousa:**
+My strength is problem-solving and I will try to implement this strength by debugging the errors and testing our code and I want to develop my communication and time management skills
+
 **Yasmeen:**
 
 **What are the key strengths of each person on the team?**
