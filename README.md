@@ -56,7 +56,7 @@ As a user I want to have the ability to approve or reject other user's request t
 
 ## Software Requirements
 
-MarkDown File : [Software Requirements](markdown/SoftwareRequirements.md)
+MarkDown File : [Software Requirements](markdown/requirements.md)
 
 ## Domain Modeling
 Miro Link : [Domain Modeling](https://miro.com/welcomeonboard/TGFJRnBudXBHS0dCUEFYanZFTFo1Wm12TFF0Tmlad0xmR3hmSUtUVkUzWVdpNkhSSThITU04SXExcHFhTVcyNXwzMDc0NDU3MzU1MzkxNjAyMTM2)
@@ -90,6 +90,7 @@ profile_image .
 
 
 <br>
+
 
 
 ![db-schema](assets/images/schema.jpg)

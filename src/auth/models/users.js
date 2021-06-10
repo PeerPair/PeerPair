@@ -56,6 +56,14 @@ users.statics.authenticateWithToken = async function (token) {
     throw new Error(e.message)
   }
 }
+users.statics.getUserIdFromToken = async function (token) {
+  try {
+    const parsedToken = jwt.verify(token, process.env.SECRET);
+    return parsedToken.userId;
+  } catch (e) {
+    throw new Error(e.message)
+  }
+}
 
 users.read(_id) {
   if (_id) {
