@@ -3,11 +3,13 @@
 const mongoose = require('mongoose');
 
 const requestSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  color: { type: String, required: true },
-  size: { type: String, required: true }
+  user_ID: { type: String, default:'my-id'},
+  submitters: {type: Array, required: true},
+  keyword: { type: String, required: true },
+  category: { type: String, required: true, enum: ['Study Group', 'Gaming', 'Sports', 'Traveling'] },
+  created_date: { type: String, required: true },
+  description: { type: String, required: true },
 });
-
 const requestModel = mongoose.model('request', requestSchema);
 
 module.exports = requestModel;
