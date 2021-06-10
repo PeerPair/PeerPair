@@ -15,7 +15,7 @@ async function getAllRequests(req, res, next) {
     const token = req.headers.authorization.split(' ').pop();
     const userID = await users.getUserIdFromToken(token);
     console.log(userID);
-    const allRequestsData =  await request.read();
+    const allRequestsData =  await request.get();
     const user = await users.read(userID);
     const keywords = user.interests.split(" ");
     let finalResponse = [];

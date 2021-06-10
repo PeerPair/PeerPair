@@ -12,7 +12,7 @@ async function getAllRequests(req, res, next) {
   try {
     const query = req.body;
     const keywords = query.keyword.split(" ");
-    const allRequestsData = await request.read();
+    const allRequestsData = await request.get();
     const catReq = allRequestsData.filter(obj=>{
         return obj.category === query.category;
     })
