@@ -6,14 +6,17 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const users = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  email: {type: String, unique: true, required: true},
   password: { type: String, required: true },
+  first_name: {type: String, required: true},
+  last_name: {type: String, required: true},
+  interests: {type: String},
   role: { type: String, required: true, default: 'user', enum: ['user', 'editor', 'admin','writer'] },
 });
 
 users.virtual('token').get(function () {
   let tokenObject = {
-    username: this.username,
+    userId: this._id,
   }
   return jwt.sign(tokenObject, process.env.SECRET)
 });
@@ -35,8 +38,8 @@ users.pre('save', async function () {
 });
 
 // BASIC AUTH
-users.statics.authenticateBasic = async function (username, password) {
-  const user = await this.findOne({ username })
+users.statics.authenticateBasic = async function (email, password) {
+  const user = await this.findOne({ email })
   const valid = await bcrypt.compare(password, user.password)
   if (valid) { return user; }
   throw new Error('Invalid User');
@@ -46,11 +49,17 @@ users.statics.authenticateBasic = async function (username, password) {
 users.statics.authenticateWithToken = async function (token) {
   try {
     const parsedToken = jwt.verify(token, process.env.SECRET);
-    const user = this.findOne({ username: parsedToken.username })
+    const user = this.findOne({ _id: parsedToken.userId })
     if (user) { return user; }
     throw new Error("User Not Found");
   } catch (e) {
     throw new Error(e.message)
+  }
+}
+
+users.read(_id) {
+  if (_id) {
+    return this.findOne({ _id });
   }
 }
 
