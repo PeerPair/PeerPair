@@ -57,5 +57,11 @@ users.statics.authenticateWithToken = async function (token) {
   }
 }
 
+users.read(_id) {
+  if (_id) {
+    return this.findOne({ _id });
+  }
+}
+
 
 module.exports = mongoose.model('users', users);
