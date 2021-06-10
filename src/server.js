@@ -9,6 +9,8 @@ const errorHandler = require('./middleware/500.js');
 const notFound = require('./middleware/404.js');
 const authRoutes = require('./auth/routes.js');
 const requestRoutes = require('./routes/request.js');
+const explore = require('./routes/explore');
+const search = require('./routes/search')
 // Prepare the express app
 const app = express();
 const multerParse = multer();
@@ -22,11 +24,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
 // Routes
 app.use(authRoutes);
 app.use('/request', requestRoutes);
 
+app.use(explore);
+app.use(search)
 // Catchalls
 app.use(notFound);
 app.use(errorHandler);
