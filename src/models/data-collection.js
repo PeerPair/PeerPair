@@ -19,6 +19,13 @@ class DataCollection {
     }
   }
 
+  getMyRequests(user_ID) {
+    if (user_ID) {
+      return this.model.findOne({ user_ID });
+    }
+  }
+
+
   create(record) {
     let newRecord = new this.model(record);
     return newRecord.save();
