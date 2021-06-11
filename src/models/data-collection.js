@@ -21,7 +21,7 @@ class DataCollection {
 
   getMyRequests(user_ID) {
     if (user_ID) {
-      return this.model.findOne({ user_ID });
+      return this.model.find({ user_ID });
     }
   }
 

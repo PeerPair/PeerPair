@@ -21,7 +21,8 @@ async function getAllRequests(req, res, next) {
     let finalResponse = [];
     keywords.forEach(val=>{
         allRequestsData.forEach(request => {
-            let keyword = request.keyword.split(" ")
+          let keyword=[];
+            if(request.keyword)  keyword = request.keyword.split(" ");
             if(keyword.includes(val)) {
                 if(!finalResponse.includes(request)) finalResponse.push(request);
         }
