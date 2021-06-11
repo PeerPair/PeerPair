@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use(authRoutes);
-app.use('/request', requestRoutes);
+app.use('/', requestRoutes);
 
 app.use(explore);
 app.use(search)

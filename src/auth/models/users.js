@@ -6,11 +6,23 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const users = new mongoose.Schema({
-  email: {type: String, unique: true, required: true},
-  password: { type: String, required: true },
   first_name: {type: String, required: true},
   last_name: {type: String, required: true},
-  interests: {type: String},
+  password: { type: String, required: true },
+  email: {type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: 'Email address is required',
+    // validate: [validateEmail, 'Please fill a valid email address'],
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'] },
+    interests: {type: String},
+    age : {type: Number},
+    user_bio: {type: String},
+    location: {type: String},
+    profile_image: {data: Buffer,
+    contentType: String},
+    education: {type: String},
   role: { type: String, required: true, default: 'user', enum: ['user', 'editor', 'admin','writer'] },
 });
 
