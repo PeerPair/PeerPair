@@ -65,9 +65,9 @@ users.statics.getUserIdFromToken = async function (token) {
   }
 }
 
-users.read(_id) {
+users.statics.read =async function(_id) {
   if (_id) {
-    return this.findOne({ _id });
+    return await this.findOne({ _id });
   }
 }
 
