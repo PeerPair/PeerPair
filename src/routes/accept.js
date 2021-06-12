@@ -21,7 +21,8 @@ async function accept(req, res, next) {
     const reqID = req.params.id;
     const reqObj = await request.get(reqID);
     const reqOwnerID = reqObj.user_ID;
-    if (reqOwnerID === req.userID) {
+
+    if (reqOwnerID === req.userID && reqObj.submitters.includes(submitterID)) { 
         const newInfo = submitterID;
         let submittersObj = {  accepted:true,current_partner:newInfo } ;
         const updatedInfo = await request.update(req.params.id, submittersObj);

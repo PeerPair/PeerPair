@@ -32,7 +32,8 @@ async function getAllRequests(req, res, next) {
                 if(!finalResponse.includes(request)) finalResponse.push(request);
         }
         });
-    })
+    });
+    
     res.json(finalResponse);
   } catch (error) {
     next(error);

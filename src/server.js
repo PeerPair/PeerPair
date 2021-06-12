@@ -13,7 +13,9 @@ const explore = require('./routes/explore');
 const search = require('./routes/search')
 const submitRout = require('./routes/submit')
 const profileRout = require('./routes/profile')
-const acceptRout = require('./routes/accept')
+const acceptRout = require('./routes/accept');
+const allRequestRout = require('./routes/all-request');
+
 // Prepare the express app
 const app = express();
 const multerParse = multer();
@@ -33,6 +35,8 @@ app.use(requestRoutes);
 app.use(submitRout);
 app.use(profileRout);
 app.use(acceptRout);
+app.use(allRequestRout);
+
 
 app.use(explore);
 app.use(search)
