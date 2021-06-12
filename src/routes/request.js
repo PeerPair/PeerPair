@@ -43,6 +43,14 @@ async function addRequest(req, res, next) {
 
     const requestInfo = req.body;
     requestInfo.user_ID = req.userID;
+
+    let dateObj = new Date();
+    requestInfo.created_date = dateObj.toLocaleString();
+
+    requestInfo.accepted = false;
+    requestInfo.current_partner = 'none';
+    requestInfo.submitters = [];
+
     const newRequest = await request.create(requestInfo);
     res.status(201).json(newRequest);
   } catch (error) {
