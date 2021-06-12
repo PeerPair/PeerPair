@@ -21,7 +21,7 @@ async function getAllRequests(req, res, next) {
     console.log(user);
     const keywords = user.interests?user.interests.split(" "):[];
     const catReq = allRequestsData.filter(obj=>{
-        return (obj.user_ID !== req.userID) ;
+        return (obj.user_ID !== req.userID && !(obj.accepted)) ;
     })
     let finalResponse = [];
     keywords.forEach(val=>{

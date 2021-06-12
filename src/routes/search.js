@@ -19,7 +19,7 @@ async function getAllRequests(req, res, next) {
     const allRequestsData = await request.get();
     const catReq = allRequestsData.filter(obj=>{
       console.log(obj);
-        return (obj.user_ID !== req.userID && obj.category === query.category) ;
+        return (obj.user_ID !== req.userID && obj.category === query.category && !(obj.accepted)) ;
     })
     let finalResponse = [];  
     keywords.forEach(val=>{
