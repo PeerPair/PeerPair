@@ -4,12 +4,13 @@ const DataCollection = require("../models/data-collection.js");
 const RequestModel = require("../models/requests/model.js");
 const request = new DataCollection(RequestModel);
 const router = express.Router();
+const generateID = require('../middleware/generateID');
 const bearerAuth = require("../auth/middleware/bearer");
 
 
 
 //Routing methods
-router.get("/search",bearerAuth, getAllRequests);
+router.get("/search",bearerAuth, generateID, getAllRequests);
 
 async function getAllRequests(req, res, next) { 
   try {
@@ -17,9 +18,10 @@ async function getAllRequests(req, res, next) {
     const keywords = query.keyword.split(" ");
     const allRequestsData = await request.get();
     const catReq = allRequestsData.filter(obj=>{
-        return obj.category === query.category;
+      console.log(obj);
+        return (obj.user_ID !== req.userID && obj.category === query.category) ;
     })
-    let finalResponse = [];
+    let finalResponse = [];  
     keywords.forEach(val=>{
         catReq.forEach(request => {
           let keyword;

@@ -10,7 +10,7 @@ const accepted = require('../middleware/accepted.js')
 
 
 //Routing methods
-router.get("/request",bearerAuth, getAllRequests);
+router.get("/request",bearerAuth, generateID, getAllRequests);
 router.get("/request/:id", bearerAuth,generateID, getOneRequest);
 router.post("/request", bearerAuth,generateID, addRequest);
 router.put("/request/:id", bearerAuth,accepted,generateID, updateRequest);

@@ -15,13 +15,17 @@ router.get("/explore",bearerAuth,generateID, getAllRequests);
 
 async function getAllRequests(req, res, next) { 
   try {
+    const query = req.body ;
     const allRequestsData =  await request.get();
     const user = await users.read(req.userID);
     console.log(user);
     const keywords = user.interests?user.interests.split(" "):[];
+    const catReq = allRequestsData.filter(obj=>{
+        return (obj.user_ID !== req.userID) ;
+    })
     let finalResponse = [];
     keywords.forEach(val=>{
-        allRequestsData.forEach(request => {
+      catReq.forEach(request => {
           let keyword=[];
             if(request.keyword)  keyword = request.keyword.split(" ");
             if(keyword.includes(val)) {
