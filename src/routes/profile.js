@@ -13,10 +13,7 @@ router.get("/profile/:id", bearerAuth,generateID, renderProfile);
 async function renderProfile(req, res, next) {
   try {
     let paramsId = req.params.id;
-    if (paramsId === req.userID) {
-      const requestData = await users.read(req.params.id);
-      res.json(requestDataa);
-    } else {
+    if (paramsId !== req.userID) {
       const requestData = await users.read(req.params.id);
       const allowedData = {
         first_name: requestData.first_name,
@@ -25,8 +22,11 @@ async function renderProfile(req, res, next) {
         user_bio: requestData.user_bio,
         profile_image: requestData.profile_image,
         education: requestData.education,
+        intrests: requestData.intrests
       };
       res.json(allowedData);
+    } else {
+      res.redirect('/');
     }
   } catch (error) {
     next(error);

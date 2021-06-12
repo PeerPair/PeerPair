@@ -18,7 +18,7 @@ async function cancelSubmit(req, res, next) {
     try {
       let submitterID = req.body.id;
       const reqID = req.params.id;
-      const reqObj = await request.get(reqID);
+      const reqObj = req.data;
       const reqOwnerID = reqObj.user_ID;
       if (reqOwnerID === req.userID) {
           const newInfo = submitterID;
@@ -38,7 +38,7 @@ async function cancelSubmit(req, res, next) {
 async function updateRequest(req, res, next) {
   try {
     let reqId = req.params.id;
-    const reqObj = await request.get(reqId);
+    const reqObj = req.data;
     const idFromObj = reqObj.user_ID;
     if (idFromObj === req.userID) {
       const newInfo = req.body;
@@ -57,7 +57,7 @@ async function updateRequest(req, res, next) {
 async function removeSubmitter(req, res, next) {
 
   let reqId = req.params.id;
-  const reqObj = await request.get(reqId);
+  const reqObj = req.data;
   const idFromObj = reqObj.user_ID;
   if (idFromObj !== req.userID) {
     const newInfo = req.userID;

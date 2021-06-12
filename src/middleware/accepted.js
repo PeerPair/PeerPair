@@ -8,6 +8,7 @@ const request = new DataCollection(RequestModel);
 module.exports=async (req,res,next)=>{
 try{
     const requestData = await request.get(req.params.id);
+    req.data = requestData;
     if(requestData.accepted){
         throw new Error('this request is accepted')
     }else{
