@@ -62,7 +62,7 @@ async function updateRequest(req, res, next) {
   try {
 
     let reqId = req.params.id;
-    const reqObj = await request.get(reqId);
+    const reqObj = req.data;
     const idFromObj = reqObj.user_ID;
     if (idFromObj === req.userID) {
       const newInfo = req.body;

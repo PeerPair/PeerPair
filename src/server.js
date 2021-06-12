@@ -15,6 +15,8 @@ const submitRout = require('./routes/submit')
 const profileRout = require('./routes/profile')
 const acceptRout = require('./routes/accept');
 const allRequestRout = require('./routes/all-request');
+const homeRout = require('./routes/home-rout');
+
 
 // Prepare the express app
 const app = express();
@@ -36,6 +38,7 @@ app.use(submitRout);
 app.use(profileRout);
 app.use(acceptRout);
 app.use(allRequestRout);
+app.use(homeRout);
 
 
 app.use(explore);

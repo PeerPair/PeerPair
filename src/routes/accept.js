@@ -19,7 +19,7 @@ async function accept(req, res, next) {
   try {
     let submitterID = req.body.id;
     const reqID = req.params.id;
-    const reqObj = await request.get(reqID);
+    const reqObj = req.data;
     const reqOwnerID = reqObj.user_ID;
 
     if (reqOwnerID === req.userID && reqObj.submitters.includes(submitterID)) { 
