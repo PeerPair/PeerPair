@@ -15,7 +15,7 @@ async function renderProfile(req, res, next) {
     let paramsId = req.params.id;
     if (paramsId === req.userID) {
       const requestData = await users.read(req.params.id);
-      res.json(requestDataa);
+      res.json(requestData);
     } else {
       const requestData = await users.read(req.params.id);
       const allowedData = {

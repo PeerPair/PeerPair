@@ -8,7 +8,7 @@ require('dotenv').config();
 const users = new mongoose.Schema({
   first_name: {type: String, required: true},
   last_name: {type: String, required: true},
-  password: { type: String, required: true },
+  password: { type: String, required: true, match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ , 'Please fill a valid password with minimum 8 characters'] },
   email: {type: String,
     trim: true,
     lowercase: true,
