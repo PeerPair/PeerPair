@@ -9,6 +9,8 @@ const requestSchema = mongoose.Schema({
   category: { type: String, required: true, enum: ['Study Group', 'Gaming', 'Sports', 'Traveling', 'Cooking'] },
   created_date: { type: String, required: true },
   description: { type: String, required: true },
+   accepted: {type:Boolean, default:false },
+   current_partner :{type:String,default:'none'},
 });
 const requestModel = mongoose.model('request', requestSchema);
 

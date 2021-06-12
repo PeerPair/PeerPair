@@ -14,7 +14,6 @@ const users = new mongoose.Schema({
     lowercase: true,
     unique: true,
     required: 'Email address is required',
-    // validate: [validateEmail, 'Please fill a valid email address'],
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'] },
     interests: {type: String},
     age : {type: Number},
@@ -23,7 +22,7 @@ const users = new mongoose.Schema({
     profile_image: {data: Buffer,
     contentType: String},
     education: {type: String},
-  role: { type: String, required: true, default: 'user', enum: ['user', 'editor', 'admin','writer'] },
+  role: { type: String, default: 'user', enum: ['user', 'editor', 'admin'] },
 });
 
 users.virtual('token').get(function () {
@@ -36,9 +35,8 @@ users.virtual('token').get(function () {
 users.virtual('capabilities').get(function () {
   let acl = {
     user: ['read'],
-    writer: ['read','create'],
     editor: ['read', 'create', 'update'],
-    admin: ['read', 'create', 'update', 'delete']
+    admin: ['read', 'create', 'update', 'deleteRequest']
   };
   return acl[this.role];
 });
