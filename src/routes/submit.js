@@ -41,9 +41,7 @@ async function updateRequest(req, res, next) {
     const reqObj = req.data;
     const idFromObj = reqObj.user_ID;
     if (idFromObj === req.userID) {
-      const newInfo = req.body;
-      const updatedInfo = await request.update(req.params.id, newInfo);
-      res.json(updatedInfo);
+      throw new Error ('You Cannot Submit Your Request')
     } else {
       const newInfo = req.userID;
       let submittersObj = { $addToSet: { submitters: newInfo } };

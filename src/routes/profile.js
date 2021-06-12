@@ -13,7 +13,9 @@ router.get("/profile/:id", bearerAuth,generateID, renderProfile);
 async function renderProfile(req, res, next) {
   try {
     let paramsId = req.params.id;
+
     if (paramsId !== req.userID) {
+
       const requestData = await users.read(req.params.id);
       const allowedData = {
         first_name: requestData.first_name,
