@@ -6,12 +6,23 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const users = new mongoose.Schema({
-  email: {type: String, unique: true, required: true},
-  password: { type: String, required: true },
   first_name: {type: String, required: true},
   last_name: {type: String, required: true},
-  interests: {type: String},
-  role: { type: String, required: true, default: 'user', enum: ['user', 'editor', 'admin','writer'] },
+  password: { type: String, required: true },
+  email: {type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: 'Email address is required',
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'] },
+    interests: {type: String},
+    age : {type: Number},
+    user_bio: {type: String},
+    location: {type: String},
+    profile_image: {data: Buffer,
+    contentType: String},
+    education: {type: String},
+  role: { type: String, default: 'user', enum: ['user', 'editor', 'admin'] },
 });
 
 users.virtual('token').get(function () {
@@ -24,9 +35,8 @@ users.virtual('token').get(function () {
 users.virtual('capabilities').get(function () {
   let acl = {
     user: ['read'],
-    writer: ['read','create'],
     editor: ['read', 'create', 'update'],
-    admin: ['read', 'create', 'update', 'delete']
+    admin: ['read', 'create', 'update', 'deleteRequest']
   };
   return acl[this.role];
 });

@@ -4,9 +4,12 @@ const DataCollection = require("../models/data-collection.js");
 const RequestModel = require("../models/requests/model.js");
 const request = new DataCollection(RequestModel);
 const router = express.Router();
+const bearerAuth = require("../auth/middleware/bearer");
+
+
 
 //Routing methods
-router.get("/search", getAllRequests);
+router.get("/search",bearerAuth, getAllRequests);
 
 async function getAllRequests(req, res, next) { 
   try {
@@ -31,8 +34,6 @@ async function getAllRequests(req, res, next) {
     next(error);
   }
 }
-//explore --> user ---> interests --- > [keywords]
-
 
 
 module.exports = router;

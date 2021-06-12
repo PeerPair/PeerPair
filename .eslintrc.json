@@ -14,6 +14,7 @@
     "es6": true,
     "jest": true
   },
+  "eslint.validate": [ "javascript", "javascriptreact", "html", "typescriptreact" ],
   "rules": {
     "eqeqeq": [
       "error",

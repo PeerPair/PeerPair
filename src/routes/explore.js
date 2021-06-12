@@ -5,19 +5,20 @@ const RequestModel = require("../models/requests/model.js");
 const users = require('../auth/models/users')
 const request = new DataCollection(RequestModel);
 const router = express.Router();
+const generateID = require('../middleware/generateID');
+const bearerAuth = require("../auth/middleware/bearer");
+
 
 //Routing methods
-router.get("/explore", getAllRequests);
+
+router.get("/explore",bearerAuth,generateID, getAllRequests);   
 
 async function getAllRequests(req, res, next) { 
   try {
-    if (!req.headers.authorization) { _authError() }
-    const token = req.headers.authorization.split(' ').pop();
-    const userID = await users.getUserIdFromToken(token);
-    console.log(userID);
     const allRequestsData =  await request.get();
-    const user = await users.read(userID);
-    const keywords = user.interests.split(" ");
+    const user = await users.read(req.userID);
+    console.log(user);
+    const keywords = user.interests?user.interests.split(" "):[];
     let finalResponse = [];
     keywords.forEach(val=>{
         allRequestsData.forEach(request => {
@@ -32,12 +33,8 @@ async function getAllRequests(req, res, next) {
   } catch (error) {
     next(error);
   }
-  function _authError() {
-    res.status(403).send('Invalid Login');
-  }
-}
-//explore --> user ---> interests --- > [keywords]
 
+}
 
 
 module.exports = router;
