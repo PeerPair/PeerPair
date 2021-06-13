@@ -13,6 +13,10 @@ PeerPair is website that enables users to find their a partner, wether it was fo
 ## What problem does it solve?
 A lot of things need a partner to be done, or might be better if you have a partner, but it is not easy to always find that partner in your actual community. Our website gives you the opportunity to find a partner with the same interest or need. For example, if you have an exam for a certain subject and another person also has an exam for that subject, you both can join and study with each other. Or if a group of gamers are missing a player they can find someone who is interested in that game.  
 
+## Wireframes
+
+https://miro.com/app/board/o9J_l_H8jmU=/
+
 ## User Stories
 #### **Feature One** : 
 As a user I want to be able to create an account. and sign in into that account, as well as having the ability to edit my information in the account. 
@@ -59,7 +63,7 @@ As a user I want to have the ability to approve or reject other user's request t
 MarkDown File : [Software Requirements](markdown/requirements.md)
 
 ## Domain Modeling
-Miro Link : [Domain Modeling](https://miro.com/welcomeonboard/TGFJRnBudXBHS0dCUEFYanZFTFo1Wm12TFF0Tmlad0xmR3hmSUtUVkUzWVdpNkhSSThITU04SXExcHFhTVcyNXwzMDc0NDU3MzU1MzkxNjAyMTM2)
+Miro Link : [Domain Modeling](https://miro.com/app/board/o9J_l_m0Owo=/)
 
 ![db-schema](assets/images/PeerPair.jpg)
 
