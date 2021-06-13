@@ -24,7 +24,7 @@ async function renderProfile(req, res, next) {
         user_bio: requestData.user_bio,
         profile_image: requestData.profile_image,
         education: requestData.education,
-        intrests: requestData.intrests
+        interests: requestData.interests
       };
       res.json(allowedData);
     } else {
