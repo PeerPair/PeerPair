@@ -23,6 +23,7 @@ let users = {
   "age": 20 },
 };
 
+
 describe('Auth Router', () => {
 
   Object.keys(users).forEach(userType => {
@@ -34,10 +35,12 @@ describe('Auth Router', () => {
         const response = await mockRequest.post('/signup').send(users[userType]);
         const userObject = response.body;
 
+
         expect(response.status).toBe(201);
         expect(userObject.token).toBeDefined();
         expect(userObject.user._id).toBeDefined();
         expect(userObject.user.email).toEqual(users[userType].email)
+
 
       });
 
@@ -46,11 +49,13 @@ describe('Auth Router', () => {
         const response = await mockRequest.post('/signin')
           .auth(users[userType].email, users[userType].password);
 
+
         const userObject = response.body;
         expect(response.status).toBe(200);
         expect(userObject.token).toBeDefined();
         expect(userObject.user._id).toBeDefined();
         expect(userObject.user.email).toEqual(users[userType].email)
+
 
       });
 
@@ -84,10 +89,12 @@ describe('Auth Router', () => {
 
       it('bearer fails with an invalid token', async () => {
 
+
         // First, use basic to login to get a token
         const bearerResponse = await mockRequest
           .get('/users')
           .set('Authorization', `Bearer foobar`)
+
 
         // Not checking the value of the response, only that we "got in"
         expect(bearerResponse.status).toBe(403);
@@ -98,3 +105,4 @@ describe('Auth Router', () => {
   });
 
 });
+

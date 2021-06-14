@@ -1,6 +1,8 @@
 'use strict';
 
+
 process.env.SECRET = "toes";
+
 
 require('@code-fellows/supergoose');
 const middleware = require('../src/auth/middleware/bearer.js');
@@ -21,7 +23,9 @@ beforeAll(async () => {
   await new Users(users.user1).save();
 });
 
+
 describe('Auth Middleware', () => {
+
 
   // Mock the express req/res/next that we need for each middleware call
   const req = {};
@@ -31,6 +35,7 @@ describe('Auth Middleware', () => {
   }
   const next = jest.fn();
 
+
   describe('user authentication', () => {
 
     it('fails a login for a user (admin) with an incorrect token', () => {
@@ -39,11 +44,13 @@ describe('Auth Middleware', () => {
         authorization: 'Bearer thisisabadtoken',
       };
 
+
       return middleware(req, res, next)
         .then(() => {
           expect(next).not.toHaveBeenCalled();
           expect(res.status).toHaveBeenCalledWith(403);
         });
+
 
     });
 
@@ -56,13 +63,16 @@ describe('Auth Middleware', () => {
     //     authorization: `Bearer ${token}`,
     //   };
 
+
     //   return middleware(req, res, next)
     //     .then(() => {
     //       expect(next).toHaveBeenCalledWith();
     //     });
+
 
     // });
 
   });
 
 });
+

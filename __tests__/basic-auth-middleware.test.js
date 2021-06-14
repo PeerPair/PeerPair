@@ -1,8 +1,10 @@
 'use strict';
 
+
 require('@code-fellows/supergoose');
 const middleware = require('../src/auth/middleware/basic.js');
 const Users = require('../src/auth/models/users.js');
+
 
 let users = {
   user1: { "first_name": "tasnim",
@@ -12,6 +14,7 @@ let users = {
   "interests": "music",
   "age": 19 },
 };
+
 
 // Pre-load our database with fake users
 
@@ -24,6 +27,7 @@ describe('Auth Middleware', () => {
   // admin:password: YWRtaW46cGFzc3dvcmQ=
   // admin:foo: YWRtaW46Zm9v
 
+
   // Mock the express req/res/next that we need for each middleware call
   const req = {};
   const res = {
@@ -32,9 +36,11 @@ describe('Auth Middleware', () => {
   }
   const next = jest.fn();
 
+
   describe('user authentication', () => {
 
     it('fails a login for a user as admin with the incorrect basic credentials', () => {
+
 
       // Change the request to match this test case
       req.headers = {
@@ -47,9 +53,11 @@ describe('Auth Middleware', () => {
           expect(res.status).toHaveBeenCalledWith(403);
         });
 
+
     }); // it()
 
     it('fails login a user as admin with the right credentials', () => {
+
 
       // Change the request to match this test case
       req.headers = {
@@ -62,8 +70,10 @@ describe('Auth Middleware', () => {
           expect(res.status).toHaveBeenCalledWith(403);
         });
 
+
     }); // it()
 
   });
 
 });
+
