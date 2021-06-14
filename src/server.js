@@ -3,12 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const multer = require('multer');
-const http = require('http');
-const httpServer=http.createServer(app);
-const io = require('socket.io')(http,{cors: {
-  origin: '*',
-  methods: ['GET', 'POST'],
-}});
 // Esoteric Resources
 const errorHandler = require('./middleware/500.js');
 const notFound = require('./middleware/404.js');
@@ -21,46 +15,9 @@ const profileRout = require('./routes/profile')
 const acceptRout = require('./routes/accept');
 const allRequestRout = require('./routes/all-request');
 const homeRout = require('./routes/home-rout');
-// socket routes
-//list of messages
-app.get('/rooms', (req, res) => {
-  res.render('index', { rooms: rooms });
-});
 
-// app.post('/room', (req, res) => {
-//   if (rooms[req.body.room] != null) {
-//     return res.redirect('/');
-//   }
-//   rooms[req.body.room] = { users: {} };
-//   res.redirect(req.body.room);
-//   // Send message that new room was created
-//   io.emit('room-created', req.body.room);
-// });
+const messegeRout = require('./routes/messege.js');
 
-app.get('/room/:room', (req, res) => {
-  if (rooms[req.params.room] == null) {
-    return res.redirect('/room');
-  }
-  res.render('room', { roomName: req.params.room });
-});
-
-//socket connection
-io.on('connection', socket => {
-  socket.on('new-user', (room, name) => {
-    socket.join(room);
-    rooms[room].users[socket.id] = name;
-    socket.to(room).emit('user-connected', name);
-  });
-  socket.on('send-chat-message', (room, message) => {
-    socket.to(room).emit('chat-message', { message: message, name: rooms[room].users[socket.id] });
-  });
-  socket.on('disconnect', () => {
-    // getUserRooms(socket).forEach(room => {
-    //   socket.to(room).emit('user-disconnected', rooms[room].users[socket.id]);
-    //   delete rooms[room].users[socket.id];
-    // });
-  });
-});
 
 // Prepare the express app
 app.set('views', './views');
@@ -86,6 +43,8 @@ app.use(profileRout);
 app.use(acceptRout);
 app.use(allRequestRout);
 app.use(homeRout);
+app.use(messegeRout);
+
 
 
 app.use(explore);
