@@ -8,6 +8,7 @@ const accepted = require('../middleware/accepted.js');
 const DataCollection = require("../models/data-collection.js");
 const RequestModel = require("../models/requests/model.js");
 const request = new DataCollection(RequestModel);
+const noti = require("../models/notification/notification.js");
 
 //Routing methods
 router.put("/accept/:id", bearerAuth,accepted,generateID, accept);
@@ -18,7 +19,6 @@ router.put("/cancelaccept/:id", bearerAuth,generateID, cancel);
 async function accept(req, res, next) {
   try {
     let submitterID = req.body.id;
-    const reqID = req.params.id;
     const reqObj = req.data;
     const reqOwnerID = reqObj.user_ID;
 
@@ -26,6 +26,8 @@ async function accept(req, res, next) {
         const newInfo = submitterID;
         let submittersObj = {  accepted:true,current_partner:newInfo } ;
         const updatedInfo = await request.update(req.params.id, submittersObj);
+        let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} Accept your submission`}  }; 
+        const newNoti = await noti.findOneAndUpdate({user: submitterID}, notiMessage); 
         res.json(updatedInfo);
     } else {
         throw new Error('Access Denied for this action')
@@ -45,6 +47,8 @@ async function cancel(req, res, next) {
       if (reqOwnerID === req.userID) {
           let submittersObj = {  accepted:false,current_partner:'none' } ;
           const updatedInfo = await request.update(req.params.id, submittersObj);
+          let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} : Not your partner anymore `}  }; 
+          const newNoti = await noti.findOneAndUpdate({user: submitterID}, notiMessage); 
           res.json(updatedInfo);
       } else {
           throw new Error('Access Denied for this action')

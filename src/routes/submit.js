@@ -2,6 +2,7 @@
 const express = require("express");
 const DataCollection = require("../models/data-collection.js");
 const RequestModel = require("../models/requests/model.js");
+const noti = require("../models/notification/notification.js");
 const bearerAuth = require("../auth/middleware/bearer");
 const request = new DataCollection(RequestModel);
 const router = express.Router();
@@ -17,7 +18,6 @@ router.put("/cancelsubmit/:id/", bearerAuth,accepted,generateID, cancelSubmit);
 async function cancelSubmit(req, res, next) {
     try {
       let submitterID = req.body.id;
-      const reqID = req.params.id;
       const reqObj = req.data;
       const reqOwnerID = reqObj.user_ID;
       if (reqOwnerID === req.userID) {
@@ -37,7 +37,6 @@ async function cancelSubmit(req, res, next) {
 
 async function updateRequest(req, res, next) {
   try {
-    let reqId = req.params.id;
     const reqObj = req.data;
     const idFromObj = reqObj.user_ID;
     if (idFromObj === req.userID) {
@@ -46,6 +45,8 @@ async function updateRequest(req, res, next) {
       const newInfo = req.userID;
       let submittersObj = { $addToSet: { submitters: newInfo } };
       const updatedInfo = await request.update(req.params.id, submittersObj);
+      let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} submit your request`}  }; 
+       const newNoti = await noti.findOneAndUpdate({user: idFromObj}, notiMessage); 
       res.json(updatedInfo);
     }
   } catch (error) {
@@ -61,6 +62,8 @@ async function removeSubmitter(req, res, next) {
     const newInfo = req.userID;
     let submittersObj = { $pull: { submitters: { $in: [newInfo] } } };
     const updatedInfo = await request.update(req.params.id, submittersObj);
+    let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} cancel the submission your request`}  }; 
+    const newNoti = await noti.findOneAndUpdate({user: idFromObj}, notiMessage); 
     res.json(updatedInfo);
   }
 }

@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const multer = require('multer');
-
 // Esoteric Resources
 const errorHandler = require('./middleware/500.js');
 const notFound = require('./middleware/404.js');
@@ -16,11 +15,15 @@ const profileRout = require('./routes/profile')
 const acceptRout = require('./routes/accept');
 const allRequestRout = require('./routes/all-request');
 const homeRout = require('./routes/home-rout');
+const notification = require('./routes/notification');
+
 const messegeRout = require('./routes/messege.js');
 
 
 // Prepare the express app
 const app = express();
+app.set('views', './views');
+app.set('view engine', 'ejs');
 const multerParse = multer();
 
 // App Level MW
@@ -36,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(requestRoutes);
 app.use(submitRout);
+app.use(notification);
 app.use(profileRout);
 app.use(acceptRout);
 app.use(allRequestRout);
