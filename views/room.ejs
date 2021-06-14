@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat App</title>
+  <!-- <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script> -->
+  <!-- <script defer src="http://localhost:3030/socket.io/socket.io.js"></script> -->
+  <!-- <link rel="stylesheet" href="./css/chat.css"> -->
+  <script>
+    const roomName = "<%= roomName %>"
+    </script>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+    <script defer src="./basicChat.js"></script>
+</head>
+
+<body>
+    <div id="message-container"></div>
+  <form id="send-container">
+    <input type="text" id="message-input">
+    <button type="submit" id="send-button">Send</button>
+  </form>
+    <button id="openVideo"> <a href="/video/<%= roomName %>" target="popup">Video Call</a></button>
+    
+</body>
+
+</html>
