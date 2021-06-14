@@ -1,5 +1,3 @@
-
-
 let userData =  [{
   "first_name": "tasnim",
   "last_name": "ali",
@@ -7,7 +5,6 @@ let userData =  [{
   "email": "tasnim@yahoo.com",
   "interests": "music",
   "age" : 19},
-
 {
   "first_name": "furat",
   "last_name": "ali",
@@ -16,10 +13,6 @@ let userData =  [{
   "interests": "art",
   "age" : 20
   }];
-
-
-
-
 let requestsData = [
 {
 keyword: 'math',
@@ -57,8 +50,4 @@ description: 'need partner to help cooking pasta ',
   description: 'need partner to with me',
 }
 ];
-
-
-
-
 module.exports = {userData, requestsData};
