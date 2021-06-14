@@ -2,7 +2,7 @@
 
 const express = require('express');
 const authRouter = express.Router();
-
+const storage = require('node-sessionstorage')
 const User = require('./models/users.js');
 const basicAuth = require('./middleware/basic.js')
 const bearerAuth = require('./middleware/bearer.js')
@@ -13,7 +13,7 @@ authRouter.post('/signup', async (req, res, next) => {
     req.body.role = "user";
     let user = new User(req.body);
     const userRecord = await user.save();
-    const output = {
+      const output = {
       user: userRecord,
       token: userRecord.token
     };
@@ -24,6 +24,10 @@ authRouter.post('/signup', async (req, res, next) => {
 });
 
 authRouter.post('/signin', basicAuth, (req, res, next) => {
+  
+
+storage.setItem('token', req.user.token);
+
   const user = {
     user: req.user,
     token: req.user.token
