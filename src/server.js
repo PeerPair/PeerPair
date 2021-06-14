@@ -15,15 +15,15 @@ const profileRout = require('./routes/profile')
 const acceptRout = require('./routes/accept');
 const allRequestRout = require('./routes/all-request');
 const homeRout = require('./routes/home-rout');
+const notification = require('./routes/notification');
 
 const messegeRout = require('./routes/messege.js');
 
 
 // Prepare the express app
+const app = express();
 app.set('views', './views');
 app.set('view engine', 'ejs');
-io.listen(httpServer);
-const app = express();
 const multerParse = multer();
 
 // App Level MW
@@ -39,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(requestRoutes);
 app.use(submitRout);
+app.use(notification);
 app.use(profileRout);
 app.use(acceptRout);
 app.use(allRequestRout);
@@ -54,7 +55,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 module.exports = {
-  server: httpServer,
+  server: app,
   start: (port) => {
     app.listen(port, () => {
       console.log(`Server Up on ${port}`);

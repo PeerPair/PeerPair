@@ -8,7 +8,9 @@ try{
     if (!req.headers.authorization) { _authError() }
     const token = req.headers.authorization.split(' ').pop();
     const userID = await users.getUserIdFromToken(token);
+    const userData = await users.read(userID);
     req.userID = userID;
+    req.userData = userData;
     next();
 }catch(err){
     next(err)
