@@ -9,7 +9,7 @@ myVideo.muted = true;
 
 var peer = new Peer(undefined, {
   path: '/peerjs',
-  host: 'https://peer-pair.herokuapp.com/',
+  host: '/',
   port: 443,
 });
 
