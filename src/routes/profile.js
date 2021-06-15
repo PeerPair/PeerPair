@@ -2,11 +2,12 @@
 const express = require("express");
 const users = require("../auth/models/users");
 const bearerAuth = require("../auth/middleware/bearer");
+const permissions = require("../auth/middleware/acl");
 const router = express.Router();
 const generateID = require('../middleware/generateID');
 
 //Routing methods
-router.get("/profile/:id", bearerAuth,generateID, renderProfile);
+router.get("/profile/:id", bearerAuth,generateID,permissions('read'), renderProfile);
 
 
 

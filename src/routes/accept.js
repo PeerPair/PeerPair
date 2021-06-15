@@ -44,6 +44,7 @@ async function cancel(req, res, next) {
       const reqID = req.params.id;
       const reqObj = await request.get(reqID);
       const reqOwnerID = reqObj.user_ID;
+      const submitterID = reqObj.current_partner;
       if (reqOwnerID === req.userID) {
           let submittersObj = {  accepted:false,current_partner:'none' } ;
           const updatedInfo = await request.update(req.params.id, submittersObj);

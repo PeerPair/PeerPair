@@ -48,7 +48,7 @@ beforeAll(async () => {
 //Testing for errorHandler
 describe(' Tests error in server', () => {
     it('should return 500 status', async () => {
-        let errorHandlerRequest = await mockRequest.get(`/search/`).send({keywords: "play pubgi", category: "Sports" }).set('Authorization', usersTokens[1]);
+        let errorHandlerRequest = await mockRequest.post(`/search/`).send({keywords: "play pubgi", category: "Sports" }).set('Authorization', usersTokens[1]);
         expect(errorHandlerRequest.status).toBe(500);
     })
 });

@@ -104,14 +104,15 @@ let requestID =[];
           let user2Req = requestID[4];
            await mockRequest.put(`/submit/${user2Req}/`).set('Authorization', usersTokens[0]);
            let submitterID = usersIDs[0];
+           console.log(submitterID);
 
            //user2 accepts user1 submition
-           await mockRequest.put(`/accept/${user2Req}/`).send({id: submitterID}).set('Authorization', usersTokens[1]);
+           await mockRequest.put(`/accept/${user2Req}/`).send({"id": submitterID}).set('Authorization', usersTokens[1]);
 
           //ACTION
          //user2 canceles his accepts for user1 submition
            let response = await mockRequest.put(`/cancelaccept/${user2Req}/`).set('Authorization', usersTokens[1]);
-
+          console.log(response.body);
            //ASSERT
           expect(response.status).toBe(200);
           expect(response.body.accepted).toBeFalsy();
