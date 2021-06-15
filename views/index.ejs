@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat App</title>
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <!-- <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script> -->
+  <!-- <script defer src="http://localhost:3030/socket.io/socket.io.js"></script> -->
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+  <script defer src="../basicChat.js"></script>
+  <!-- <link rel="stylesheet" href="./css/chat.css"> -->
+</head>
+
+<body>
+    <div id= "room-container">
+        <% Object.keys(rooms).forEach(room => {%> 
+            <div> <%= room %> </div>
+            <a href="/chat/<%= room  %> ">Join</a>
+            <%  }) %> 
+        <form action="/room" method="POST">
+            <input name="room"  type="text" required>
+            <button type="submit">New Room</button>
+        </form>
+    </div>
+    </body>
+</html>
