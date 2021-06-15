@@ -57,12 +57,12 @@ app.post('/room', (req, res) => {
     return res.redirect('/chat');
   }
   rooms[req.body.room] = { users: {} };
-  res.redirect(req.body.room);
+  res.redirect(`/chat/${req.body.room}`);
   // Send message that new room was created
   io.emit('room-created', req.body.room);
 });
 
-app.get('/:room', (req, res) => {
+app.get('/chat/:room', (req, res) => {
   if (rooms[req.params.room] == null) {
     return res.redirect('/chat');
   }
