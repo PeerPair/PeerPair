@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Chat App</title>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <!-- <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script> -->
@@ -15,14 +17,18 @@
 </head>
 
 <body>
-    <div id= "room-container">
+    <h2>Go To Your Room</h2>
+    <br>
+    <div id= "room-container" class="roomList">
         <% Object.keys(rooms).forEach(room => {%> 
+            <br>
             <div> <%= room %> </div>
             <a href="/chat/<%= room  %> ">Join</a>
+            <br>
             <%  }) %> 
-        <form action="/room" method="POST">
-            <input name="room"  type="text" required>
-            <button type="submit">New Room</button>
+        <form action="/room" method="POST" class="roomForm">
+            <input name="room"  type="text" required class="roomNameInput">
+            <button type="submit" class="btn">New Room</button>
         </form>
     </div>
     </body>
