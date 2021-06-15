@@ -81,6 +81,20 @@ let requestID =[];
           expect(response.body.current_partner).toEqual(submitterID);
 
         });
+        it('Should throw error if access was not allowed', async () => {
+
+          //ARRANGE
+          //user1 submits request of user2 
+          let user2Req = requestID[1];
+           await mockRequest.put(`/submit/${user2Req}/`).set('Authorization', usersTokens[0]);
+           let submitterID = usersIDs[0];
+
+          //ACTION
+         //user2 accepts user1's submition
+           let response = await mockRequest.put(`/accept/${user2Req}/`).send({id: usersIDs[0]}).set('Authorization', usersTokens[0]);
+           //ASSERT
+          expect(response.status).toBe(500);
+        });
 
 
         it('["/cancelaccept/:id]: should cancel the acception of certain submition and return the updated request info', async () => {
@@ -104,6 +118,4 @@ let requestID =[];
           expect(response.body.current_partner).toEqual('none');
 
         });
-
-    
       });

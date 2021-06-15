@@ -80,6 +80,4 @@ let requestID =[];
           expect(response.status).toBe(200);
           expect(response.body.length).toBe(6);
         });
-
-    
       });

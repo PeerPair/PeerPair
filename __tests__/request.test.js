@@ -75,6 +75,10 @@ describe(' Tests `/request` route', () => {
         expect(updateRequest.status).toBe(200);
         expect(updateRequest.body.keyword).toEqual('science');
     });
+    it('should throw error', async () => {
+        const updateRequest = await mockRequest.put(`/request/`).set('Authorization', usersTokens[0]);
+        expect(updateRequest.status).toBe(404);
+        });
     //deleteRequest
     it('should delete request', async () => {
         //(get requestID[4])
@@ -84,6 +88,10 @@ describe(' Tests `/request` route', () => {
         expect(deleteRequest.status).toBe(200);
         expect(userRequest2.body).toEqual(null);
     });
+    it('should throw error', async () => {
+        const deleteRequest = await mockRequest.delete(`/request/${requestID[4]}`).set('Authorization', usersTokens[0]);
+        expect(deleteRequest.status).toBe(500);
+        });
 });
 
 
