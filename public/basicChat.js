@@ -6,7 +6,7 @@ const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('room-container');
-
+console.log(messageForm);
 if (messageForm != null) {
   const name = prompt('What is your name?');
   appendMessage('You joined');

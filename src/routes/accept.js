@@ -49,7 +49,7 @@ async function cancel(req, res, next) {
           let submittersObj = {  accepted:false,current_partner:'none' } ;
           const updatedInfo = await request.update(req.params.id, submittersObj);
           let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} : Not your partner anymore `}  }; 
-          const newNoti = await noti.findOneAndUpdate({user: submitterID}, notiMessage); 
+          const newNoti = await noti.findOneAndUpdate({user: reqObj.current_partner}, notiMessage); 
           res.json(updatedInfo);
       } else {
           throw new Error('Access Denied for this action')
