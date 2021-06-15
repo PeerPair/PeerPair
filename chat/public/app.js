@@ -11,13 +11,13 @@ if (messageForm != null) {
   const name = prompt('What is your name?');
   appendMessage('You joined');
   socket.emit('new-user', roomName, name);
-  // socket.on('oldChat', data=>{
-  //   if(data.messageStoreArray){
-  //     console.log('DATA',data);
-  //     data.messageStoreArray.forEach(element=>{
-  //       appendMessage(` ${element.username} : ${element.message}`);
-  //     });
-  //   }});
+  socket.on('oldChat', data=>{
+    if(data.messageStoreArray){
+      console.log('DATA',data);
+      data.messageStoreArray.forEach(element=>{
+        appendMessage(` ${element.username} : ${element.message}`);
+      });
+    }});
 
   messageForm.addEventListener('submit', e => {
     e.preventDefault();

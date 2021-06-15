@@ -20,5 +20,4 @@ module.exports = async (req, res, next) => {
   function _authError() {
     res.status(403).send('Invalid Login');
   }
-
 }
