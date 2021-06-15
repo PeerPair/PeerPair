@@ -67,10 +67,10 @@ let requestID =[];
           //ACTION
          //user1 searchs for requests
          //search 1
-           let response1 = await mockRequest.get(`/search/`).send({keyword: "play pubgi", category: "Sports" }).set('Authorization', usersTokens[1]);
+           let response1 = await mockRequest.post(`/search/`).send({keyword: "play pubgi", category: "Sports" }).set('Authorization', usersTokens[1]);
          
            //search 2
-           let response2 = await mockRequest.get(`/search/`).send({keyword: "math", category: "Study Group"}).set('Authorization', usersTokens[1]);
+           let response2 = await mockRequest.post(`/search/`).send({keyword: "math", category: "Study Group"}).set('Authorization', usersTokens[1]);
 
            //ASSERT
           expect(response1.status).toBe(200);

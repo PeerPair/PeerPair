@@ -8,7 +8,6 @@ const {userData, requestsData} = require('../src/tests-data.js');
 let usersTokens = [];
 let usersIDs = [];
 let requestID =[];
-
 beforeAll(async () => {
     //create users [user 1]
     let responseUser1 = await mockRequest.post('/signup').send(userData[0]);

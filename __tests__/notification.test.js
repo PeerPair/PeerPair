@@ -1,5 +1,5 @@
 'use strict';
-process.env.SECRET = "toes";
+
 const server = require('../src/server.js').server;
 const supergoose = require('@code-fellows/supergoose');
 const mockRequest = supergoose(server);
@@ -7,7 +7,7 @@ const {userData, requestsData} = require('../src/tests-data.js');
 
 let usersTokens = [];
 let usersIDs = [];
-let requestID = [];
+let requestID =[];
 
 beforeAll(async () => {
     //create users [user 1]
@@ -30,7 +30,7 @@ beforeAll(async () => {
     // request 3
     responseRequest = await mockRequest.post('/request').send(requestsData[2]).set('Authorization', usersTokens[0]);
     requestID.push(responseRequest.body._id);
-     // user 2 Requests
+    // user 2 Requests
     // request 4
     responseRequest = await mockRequest.post('/request').send(requestsData[3]).set('Authorization', usersTokens[1]);
     requestID.push(responseRequest.body._id);
@@ -40,15 +40,42 @@ beforeAll(async () => {
     // request 6
     responseRequest = await mockRequest.post('/request').send(requestsData[5]).set('Authorization', usersTokens[1]);
     requestID.push(responseRequest.body._id);
+    
     //request 7
     responseRequest = await mockRequest.post('/request').send(requestsData[6]).set('Authorization', usersTokens[0]);
     requestID.push(responseRequest.body._id);
-    });
-
-//Testing for errorHandler
-describe(' Tests error in server', () => {
-    it('should return 500 status', async () => {
-        let errorHandlerRequest = await mockRequest.post(`/search/`).send({keywords: "play pubgi", category: "Sports" }).set('Authorization', usersTokens[1]);
-        expect(errorHandlerRequest.status).toBe(500);
-    })
 });
+
+describe('The notification route', ()=>{
+        it('Should Push to the new notification array when a request has a new submitter ', async()=>{
+            let user2Req = requestID[3];
+           await mockRequest.put(`/submit/${user2Req}/`).set('Authorization', usersTokens[0]);
+           let submitterID = usersIDs[0];
+           let response = await mockRequest.put(`/accept/${user2Req}/`).send({id: usersIDs[0]}).set('Authorization', usersTokens[1]);
+           let notificationResponse = await mockRequest.get(`/myNotification/${usersIDs[0]}/`).send({id: usersIDs[0]}).set('Authorization', usersTokens[0]);
+           jest.setTimeout(() => {
+            expect(notificationResponse.status).toBe(200);
+            expect(notificationResponse.body.newMessages[0]).toBeTruthy();
+            expect(notificationResponse.body.all.length).toBe(0);
+        }, 3000);
+        })
+        it('Should push the old notification to the old notification array', async()=>{
+            let submitterID = usersIDs[0];
+            let notificationResponse = await mockRequest.get(`/myNotification/${usersIDs[0]}/`).send({id: usersIDs[0]}).set('Authorization', usersTokens[0]);
+            jest.setTimeout(() => {
+            expect(notificationResponse.status).toBe(200);
+            expect(notificationResponse.body.newMessages.length).toBe(0);
+            expect(notificationResponse.body.all.length).toBe(1);
+        }, 3000);
+
+        })
+        it('Should throw an error if access was denied', async()=>{
+            let submitterID = usersIDs[1];
+            let notificationResponse = await mockRequest.get(`/myNotification/${usersIDs[1]}/`).send({id: usersIDs[0]}).set('Authorization', usersTokens[0]);
+            jest.setTimeout(() => {
+            expect(notificationResponse.status).toBe(500);
+            expect(notificationResponse.error).toBeTruthy();
+        }, 3000);
+        })
+})
+

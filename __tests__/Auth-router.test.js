@@ -30,6 +30,15 @@ describe('Auth Router', () => {
 
     describe(`${userType} users`, () => {
 
+      it('cannot read the all users if the user doesn\'t has a permission', async () => {
+
+        const response = await mockRequest.get('/users').send(users[userType]);
+        const userObject = response.body;
+       expect(response.status).toBe(403);
+
+      });
+
+
       it('can create one', async () => {
 
         const response = await mockRequest.post('/signup').send(users[userType]);

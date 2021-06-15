@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    background-repeat: no-repeat;
+    background-image: url(https://marvel-b1-cdn.bc0a.com/f00000000091204/www.niceincontact.com/-/media/niceincontact/page-content/blog/2012/12/chat-bubbles.ashx?rev=c22d65a8187a41e396725a359a5c0c57&h=1000&w=1000&la=en&hash=D31233E2052E64E38261ED3DE3431514);
+  }
+
+
+.msgContainer{
+  text-align: center; 
+}
+
+
+.roomForm {
+  text-align: center;
+}
+
+.sendInput{
+  display:flex;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.sendInput{
+  color: rgb(0, 0, 0);
+  font-size: 26px;
+  padding :20px;
+  font-family:'Press Start 2P', cursive;
+  width: 300px;
+  height: 30px;
+  background-color: #4d82c363;
+  outline: none;
+  border: 2px solid #214b7365;
+  border-radius: 10px;
+  -moz-box-shadow:inset 0 0 10px #214b73;
+  -webkit-box-shadow:inset 0 0 10px #214b73;
+  box-shadow:inset 0 0 10px #214b73;
+}
+
+
+.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+    height: 30px;
+    width: 70px;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #4d82c363;
+    outline: none;
+    border: 2px solid #214b7365;
+    border-radius: 10px;
+    -moz-box-shadow:inset 0 0 10px #214b73;
+    -webkit-box-shadow:inset 0 0 10px #214b73;
+    box-shadow:inset 0 0 10px #214b73;
+}
+
+.btn:hover {
+  filter: saturate(2);
+  filter: brightness(1.2);
+  transform: translate(10% 10%);
+  transform: translate(1%, -1%) scale(1.1);
+}
+
+.btnV {
+  margin-left: 46.5%;
+  color: rgb(0, 0, 0);
+  height: 30px;
+  width: 100px;
+  font-family: 'Press Start 2P', cursive;
+  background-color: #4d82c363;
+  outline: none;
+  border: 2px solid #214b7365;
+  border-radius: 10px;
+  -moz-box-shadow:inset 0 0 10px #214b73;
+  -webkit-box-shadow:inset 0 0 10px #214b73;
+  box-shadow:inset 0 0 10px #214b73;
+    
+}
+
+.btnV:hover {
+  filter: saturate(2);
+  filter: brightness(1.2);
+  transform: translate(10% 10%);
+  transform: translate(1%, -1%) scale(1.1);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+  }
