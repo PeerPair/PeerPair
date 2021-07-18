@@ -19,10 +19,10 @@ const users = new mongoose.Schema({
     age : {type: Number},
     user_bio: {type: String},
     location: {type: String},
-    profile_image: {data: Buffer,
-    contentType: String},
+    profile_image: {type:String},
     education: {type: String},
   role: { type: String, default: 'user', enum: ['user', 'editor', 'admin'] },
+  peers:{ type:Number , default : 0}
 });
 
 users.virtual('token').get(function () {
@@ -79,6 +79,10 @@ users.statics.read =async function(_id) {
   if (_id) {
     return await this.findOne({ _id });
   }
+}
+
+users.statics.update =async function(_id,record) {
+  return this.model.findByIdAndUpdate(_id, record, { new: true });
 }
 
 
