@@ -30,7 +30,11 @@ app.set('view engine', 'ejs');
 const multerParse = multer();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server,{
+  cors: {
+    origin: "*",
+  }
+});
 // Peer
 const peerServer = ExpressPeerServer(server, {
   debug: true,
