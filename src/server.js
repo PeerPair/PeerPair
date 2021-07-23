@@ -8,6 +8,7 @@ const { ExpressPeerServer } = require('peer');
 
 
 // Esoteric Resources
+const messege = require('./models/chat/messege.js')
 const errorHandler = require('./middleware/500.js');
 const notFound = require('./middleware/404.js');
 const authRoutes = require('./auth/routes.js');
@@ -30,7 +31,13 @@ app.set('view engine', 'ejs');
 const multerParse = multer();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server,{
+  cors: {
+    origin: "*",
+  }
+});
+
+
 // Peer
 const peerServer = ExpressPeerServer(server, {
   debug: true,
@@ -58,7 +65,7 @@ app.post('/room', (req, res) => {
   }
   rooms[req.body.room] = { users: {} };
   res.redirect(`/chat/${req.body.room}`);
-  // Send message that new room was created
+
   io.emit('room-created', req.body.room);
 });
 
@@ -74,32 +81,30 @@ app.get('/video/:room', (req, res) => {
 });
 
 
-// io.on('video', (socket) => {
-//   socket.on('join-room', (roomId, userId) => {
-//     socket.to(roomId).broadcast.emit('user-connectedd', userId);
-
-//     socket.on('message', (message) => {
-//       io.to(roomId).emit('createMessage', message);
-//     });
-//   });
-// });
-io.on('connection', socket => {
-  socket.on('join-room', (roomId, userId) => {
-    socket.join(roomId);
-    socket.to(roomId).emit('user-connectedd', userId);
-
-    socket.on('message', (message) => {
-      io.to(roomId).emit('createMessage', message);
+io.on('connection',  socket => {
+  
+  socket.on('join-room',  async roomID => {
+    const oldMessages = await messege.find({room_id:roomID})
+    socket.join(roomID);
+    socket.on('message', async(message) => {
+      io.to(roomID).emit('createMessage', message);
     });
+    
   });
 
   socket.on('new-user', (room, name) => {
     socket.join(room);
-    rooms[room].users[socket.id] = name;
+    // rooms[room].users[socket.id] = name;
     socket.to(room).emit('user-connected', name);
   });
-  socket.on('send-chat-message', (room, message) => {
-    socket.to(room).emit('chat-message', { message: message, name: rooms[room].users[socket.id] });
+  socket.on('send-chat-message', async(room, message) => {
+    socket.to(room).emit('chat-message', { message: message, name: 'asg' });
+    console.log(message);
+      await messege.create({  messege:message,
+      sender_id: '1010',
+      sender_name: 'Mousa',
+      room_id : room,
+      messege_time: new Date()});
   });
   socket.on('disconnect', () => {
     getUserRooms(socket).forEach(room => {
@@ -139,7 +144,8 @@ app.use(errorHandler);
 module.exports = {
   server: app,
   start: (port) => {
-    server.listen(port, () => {
+    server.listen(port, (err) => {
+      if (err) return console.log(err);
       console.log(`Server Up on ${port}`);
     });
   },
