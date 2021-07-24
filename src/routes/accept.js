@@ -53,6 +53,7 @@ async function accept(req, res, next) {
 }
 
 async function cancel(req, res, next) {
+
   try {
     const reqID = req.params.id;
     const reqObj = await request.get(reqID);
@@ -83,6 +84,7 @@ async function cancel(req, res, next) {
       res.json(updatedInfo);
     } else {
       throw new Error('Access Denied for this action');
+
     }
   } catch (error) {
     next(error);

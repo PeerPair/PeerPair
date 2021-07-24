@@ -10,7 +10,7 @@ const bearerAuth = require("../auth/middleware/bearer");
 
 
 //Routing methods
-router.get("/search",bearerAuth, generateID, getAllRequests);
+router.post("/search",bearerAuth, generateID, getAllRequests);
 
 async function getAllRequests(req, res, next) { 
   try {
