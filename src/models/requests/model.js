@@ -11,6 +11,7 @@ const requestSchema = mongoose.Schema({
   description: { type: String, required: true },
    accepted: {type:Boolean, default:false },
    current_partner :{type:String,default:'none'},
+   image: { type:String}
 });
 const requestModel = mongoose.model('request', requestSchema);
 
