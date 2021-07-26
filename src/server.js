@@ -18,6 +18,7 @@ const submitRout = require('./routes/submit');
 const profileRout = require('./routes/profile');
 const acceptRout = require('./routes/accept');
 const allRequestRout = require('./routes/all-request');
+const chatList = require('./routes/roomList');
 const homeRout = require('./routes/home-rout');
 const notification = require('./routes/notification');
 const messegeRout = require('./routes/messege.js');
@@ -156,6 +157,7 @@ io.on('connection', (socket) => {
   });
   socket.on('send-chat-message', async (room, newmessage) => {
     socket.to(room).emit('chat-message', newmessage);
+    io.emit('hi');
     console.log(newmessage);
     await messege.create({
       messege: newmessage.message,
@@ -186,6 +188,7 @@ app.use(submitRout);
 app.use(notification);
 app.use(profileRout);
 app.use(acceptRout);
+app.use(chatList);
 app.use(allRequestRout);
 app.use(homeRout);
 app.use(messegeRout);

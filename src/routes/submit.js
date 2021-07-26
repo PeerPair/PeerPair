@@ -45,7 +45,7 @@ async function updateRequest(req, res, next) {
       const newInfo = req.userID;
       let submittersObj = { $addToSet: { submitters: newInfo } };
       const updatedInfo = await request.update(req.params.id, submittersObj);
-      let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} submit your request`}  }; 
+      let notiMessage = { $addToSet: { newMessages: `/${req.userID}/${reqObj._id}/${req.userData.first_name} submit your request`}  }; 
        const newNoti = await noti.findOneAndUpdate({user: idFromObj}, notiMessage); 
       res.json(updatedInfo);
     }
@@ -62,7 +62,7 @@ async function removeSubmitter(req, res, next) {
     const newInfo = req.userID;
     let submittersObj = { $pull: { submitters: { $in: [newInfo] } } };
     const updatedInfo = await request.update(req.params.id, submittersObj);
-    let notiMessage = { $addToSet: { newMessages: `(${req.userID})${req.userData.first_name} cancel the submission your request`}  }; 
+    let notiMessage = { $addToSet: { newMessages: `/${req.userID}/${reqId}/${req.userData.first_name} cancel the submission your request`}  }; 
     const newNoti = await noti.findOneAndUpdate({user: idFromObj}, notiMessage); 
     res.json(updatedInfo);
   }

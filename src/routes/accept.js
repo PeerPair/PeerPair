@@ -26,12 +26,21 @@ async function accept(req, res, next) {
       const updatedInfo = await request.update(req.params.id, submittersObj);
       let notiMessage = {
         $addToSet: {
-          newMessages: `(${req.userID})${req.userData.first_name} Accept your submission`,
+          newMessages: `/${req.userID}/${reqObj._id}/${req.userData.first_name} Accept you as a partner`,
         },
       };
       const newNoti = await noti.findOneAndUpdate(
         { user: submitterID },
         notiMessage
+      );
+      let notiMessage2 = {
+        $addToSet: {
+          newMessages: `/${submitterID}/${reqObj._id}/${req.userData.first_name} Is Your Partner Now`,
+        },
+      };
+      const newNoti2 = await noti.findOneAndUpdate(
+        { user: req.userID },
+        notiMessage2
       );
       await User.findByIdAndUpdate(
         reqOwnerID,
@@ -64,21 +73,31 @@ async function cancel(req, res, next) {
       const updatedInfo = await request.update(req.params.id, submittersObj);
       let notiMessage = {
         $addToSet: {
-          newMessages: `(${req.userID})${req.userData.first_name} : Not your partner anymore `,
+          newMessages: `/${req.userID}/${reqObj._id}/${req.userData.first_name} : is not your partner anymore `,
         },
       };
       const newNoti = await noti.findOneAndUpdate(
         { user: submitterID },
         notiMessage
       );
+
+      let notiMessage2 = {
+        $addToSet: {
+          newMessages: `/${submitterID}/${reqObj._id}/You have canceled the partnership with ${req.userData.first_name}`,
+        },
+      };
+      const newNoti2 = await noti.findOneAndUpdate(
+        { user: req.userID },
+        notiMessage2
+      );
       await User.findByIdAndUpdate(
         reqOwnerID,
-        { $dec: { peers: -1 } },
+        { $inc: { peers: -1 } },
         { new: true }
       );
       await User.findByIdAndUpdate(
         submitterID,
-        { $dec: { peers: -1 } },
+        { $inc: { peers: -1 } },
         { new: true }
       );
       res.json(updatedInfo);
