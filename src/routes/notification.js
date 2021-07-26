@@ -6,15 +6,13 @@ const noti = require("../models/notification/notification.js");
 const generateID = require('../middleware/generateID');
 
 //Routing methods
-router.get("/myNotification/:id", bearerAuth,generateID, getNotification);
+router.get("/myNotification", bearerAuth,generateID, getNotification);
 
 
 
 async function getNotification(req, res, next) {
   try {
-    let paramsId = req.params.id;
 
-    if (paramsId === req.userID) {
 
     const userNotification = await noti.findOne({user:req.userID});
     console.log(userNotification);
@@ -30,9 +28,7 @@ async function getNotification(req, res, next) {
     const newNotification = await noti.findOneAndUpdate({user:req.userID},userNotification);
 
     res.json({newMessages,all :newNotification.oldMessages});
-    } else {
-      throw new Error('access denied')
-    }
+
   } catch (error) {
     next(error);
   }
